@@ -38,7 +38,6 @@ contract Xcube is ERC721Enumerable , Ownable {
     function tokenOwner(uint256 tokenId) public view returns (address) {
         return tokenOwners[tokenId];
     }
-
     function setTokenOwners(uint256 tokenId, address _address) public {
         tokenOwners[tokenId] = _address;
     }
@@ -101,9 +100,13 @@ contract Xcube is ERC721Enumerable , Ownable {
         return nftDatas;
     }
 
-    //function setSaleNftToken(address _saleNftToken) public {
-    //    saleNftToken = SaleNftToken(_saleNftToken);
-    //}
+
+    //xcube와 saleNftToken을 이어준다.
+    function setSaleNftToken(address _saleNftToken) public {
+        saleNftToken = SaleNftToken(_saleNftToken);
+    }
+
+
 
     //실행 가능한 권한 설정 : setApprovalForAll -> 지갑선택 -> operator : SALENFTTOKEN AT 주소, approved : true
     //실행 가능한 권한 보기 : isApprovalForAll -> setApprovalForAll -> 해당 지갑이 true/false 인지...
