@@ -36,11 +36,11 @@ contract SaleNftToken {
 
         require(price > 0, "NFT token is not on sale.");
         require(price <= msg.value, "You sent lower than price.");
-        require(nftTokenOnwer != msg.sender, "You are not this NFT token owner.");
+        require(nftTokenOnwer != msg.sender, "You are this NFT token owner.");
 
         payable(nftTokenOnwer).transfer(msg.value);
         xcube.safeTransferFrom(nftTokenOnwer, msg.sender, _nftTokenId);
-
+        //xcube.setTokenOwners(_nftTokenId, msg.sender);
         nftTokenPrices[_nftTokenId] = 0;
 
         for(uint256 i = 0; i < onSaleNftTokenArray.length; i++) {
@@ -49,11 +49,16 @@ contract SaleNftToken {
                 onSaleNftTokenArray.pop();
             }
         }
+
     }
 
     //판매중인 NFT 개수
     function getOnSaleNftTokenArrayLength() view public returns (uint256) {
         return onSaleNftTokenArray.length;
+    }
+
+    function getOnSaleNftTokenArray() view public returns (uint256[] memory) {
+        return onSaleNftTokenArray;
     }
 
     //NFT 가격 가져오기
