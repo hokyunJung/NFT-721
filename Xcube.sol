@@ -29,6 +29,8 @@ contract Xcube is ERC721URIStorage, ERC721Enumerable {
 
     //자산 민트..
     function mintNFT(string memory tokenURI) payable public returns (uint256){
+        require(msg.value > 0, "You must send ether for minting.");
+
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
@@ -82,6 +84,8 @@ contract Xcube is ERC721URIStorage, ERC721Enumerable {
 
     //xcube와 saleNftToken을 이어준다.
     function setSaleNftToken(address _saleNftToken) public {
+        require(admin == msg.sender, "You not admin.");
+
         saleNftToken = SaleNftToken(_saleNftToken);
     }
 
