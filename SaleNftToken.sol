@@ -27,12 +27,7 @@ contract SaleNftToken {
 
         nftTokenPrices[_nftTokenId] = 0;
 
-        for(uint256 i = 0; i < onSaleNftTokenArray.length; i++) {
-            if(nftTokenPrices[onSaleNftTokenArray[i]] == 0) {
-                onSaleNftTokenArray[i] = onSaleNftTokenArray[onSaleNftTokenArray.length - 1];
-                onSaleNftTokenArray.pop();
-            }
-        }
+        removeOnSaleNftTokenArray();
     }
 
     //NFT 를 팔기 위해 사용
@@ -66,13 +61,16 @@ contract SaleNftToken {
         //xcube.setTokenOwners(_nftTokenId, msg.sender);
         nftTokenPrices[_nftTokenId] = 0;
 
+        removeOnSaleNftTokenArray();
+    }
+
+    function removeOnSaleNftTokenArray() private {
         for(uint256 i = 0; i < onSaleNftTokenArray.length; i++) {
             if(nftTokenPrices[onSaleNftTokenArray[i]] == 0) {
                 onSaleNftTokenArray[i] = onSaleNftTokenArray[onSaleNftTokenArray.length - 1];
                 onSaleNftTokenArray.pop();
             }
         }
-
     }
 
     //판매중인 NFT 개수
